@@ -1,4 +1,6 @@
-import React from 'react';
+
+
+import React, { useState } from 'react';
 import Questions from './Questions';
 import Footer from './Footer';
 
@@ -21,8 +23,17 @@ const OurHeader = () => {
 };
 
 const FeatureCard = ({ icon, title, description }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <div style={styles.card}>
+    <div 
+      style={{
+        ...styles.card,
+        transform: isHovered ? 'scale(1.05)' : 'scale(1)',
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div style={styles.cardIconWrapper}>
         <span style={styles.cardIcon}>{icon}</span>
       </div>
@@ -33,6 +44,8 @@ const FeatureCard = ({ icon, title, description }) => {
 };
 
 const Main = () => {
+  const [buttonHovered, setButtonHovered] = useState(false);
+
   const features = [
     {
       icon: "📖",
@@ -63,7 +76,16 @@ const Main = () => {
           <p style={styles.heroSubtitle}>
             Your AI-powered study assistant for accelerated learning
           </p>
-          <button style={styles.getStartedButton}>Get Started →</button>
+          <button 
+            style={{
+              ...styles.getStartedButton,
+              transform: buttonHovered ? 'scale(1.05)' : 'scale(1)',
+            }}
+            onMouseEnter={() => setButtonHovered(true)}
+            onMouseLeave={() => setButtonHovered(false)}
+          >
+            Get Started →
+          </button>
         </div>
         
         <div style={styles.cardsContainer}>
@@ -77,7 +99,7 @@ const Main = () => {
           ))}
         </div>
       </main>
-      <Questions    />
+      <Questions />
       <Footer/>
     </div>
   );
@@ -197,7 +219,7 @@ const styles = {
     fontSize: '16px',
     fontWeight: '600',
     cursor: 'pointer',
-    transition: 'transform 0.2s',
+    transition: 'transform 0.3s ease',
   },
   cardsContainer: {
     display: 'grid',
@@ -210,7 +232,8 @@ const styles = {
     border: '2px solid #2c3e50',
     borderRadius: '12px',
     padding: '32px',
-    transition: 'transform 0.3s',
+    transition: 'transform 0.3s ease',
+    cursor: 'pointer',
   },
   cardIconWrapper: {
     width: '50px',
