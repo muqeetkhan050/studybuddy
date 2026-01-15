@@ -3,8 +3,10 @@
 import React, { useState } from 'react';
 import Questions from './Questions';
 import Footer from './Footer';
+import { useNavigate } from 'react-router-dom';
 
 const OurHeader = () => {
+    const navigate=useNavigate();
   return (
     <header style={styles.header}>
       <div style={styles.logo}>
@@ -15,8 +17,8 @@ const OurHeader = () => {
         <button style={styles.githubButton}>
           ⭐ GitHub 131
         </button>
-        <button style={styles.signInButton}>Sign In</button>
-        <button style={styles.signUpButton}>Sign Up</button>
+        <button onClick={()=>navigate('/signin')} style={styles.signInButton}>Sign in</button>
+        <button onClick={()=>navigate('/register')} style={styles.signUpButton}>Register</button>
       </div>
     </header>
   );
@@ -45,6 +47,7 @@ const FeatureCard = ({ icon, title, description }) => {
 
 const Main = () => {
   const [buttonHovered, setButtonHovered] = useState(false);
+  const navigate=useNavigate();
 
   const features = [
     {
@@ -83,6 +86,8 @@ const Main = () => {
             }}
             onMouseEnter={() => setButtonHovered(true)}
             onMouseLeave={() => setButtonHovered(false)}
+       
+            onClick={()=>navigate('/register')} 
           >
             Get Started →
           </button>
