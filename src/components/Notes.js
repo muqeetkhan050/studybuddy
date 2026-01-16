@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FileText, Plus, Trash2 } from 'lucide-react';
 
-export default function NotesApp() {
+export default function Notes() {
   const [notes, setNotes] = useState([]);
   const [selectedNote, setSelectedNote] = useState(null);
   const [noteContent, setNoteContent] = useState('');
