@@ -1,7 +1,5 @@
-import React from "react";
-import LeftBar from "./Leftbar";
 
-import { useNavigate } from "react-router-dom";
+import LeftBar from "./Leftbar";
 const Home=()=>{
 
     return(
