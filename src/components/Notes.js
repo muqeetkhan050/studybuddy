@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { FileText, Plus, Trash2 } from 'lucide-react';
 
-export default function Notes() {
+export default function NotesApp() {
   const [notes, setNotes] = useState([]);
   const [selectedNote, setSelectedNote] = useState(null);
   const [noteContent, setNoteContent] = useState('');
@@ -77,7 +76,7 @@ export default function Notes() {
             onMouseEnter={(e) => e.target.style.backgroundColor = '#3d5a66'}
             onMouseLeave={(e) => e.target.style.backgroundColor = '#4a6b78'}
           >
-            <Plus size={20} />
+            <span style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>+</span>
             New Note
           </button>
         </div>
@@ -105,7 +104,10 @@ export default function Notes() {
                 padding: '3rem 1rem',
                 color: '#7a8b97'
               }}>
-                <FileText size={64} strokeWidth={1.5} style={{ marginBottom: '1rem', opacity: 0.5 }} />
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ marginBottom: '1rem', opacity: 0.5 }}>
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>
                 <p style={{ fontSize: '1rem', textAlign: 'center' }}>No notes yet</p>
               </div>
             ) : (
@@ -157,12 +159,13 @@ export default function Notes() {
                           cursor: 'pointer',
                           color: '#7a8b97',
                           display: 'flex',
-                          alignItems: 'center'
+                          alignItems: 'center',
+                          fontSize: '1.25rem'
                         }}
                         onMouseEnter={(e) => e.currentTarget.style.color = '#d94545'}
                         onMouseLeave={(e) => e.currentTarget.style.color = '#7a8b97'}
                       >
-                        <Trash2 size={16} />
+                        🗑️
                       </button>
                     </div>
                   </div>
@@ -225,7 +228,10 @@ export default function Notes() {
                 height: '100%',
                 color: '#7a8b97'
               }}>
-                <FileText size={80} strokeWidth={1.5} style={{ marginBottom: '1.5rem', opacity: 0.4 }} />
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ marginBottom: '1.5rem', opacity: 0.4 }}>
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>
                 <p style={{ fontSize: '1.125rem', textAlign: 'center' }}>Select a note or create a new one</p>
               </div>
             )}
