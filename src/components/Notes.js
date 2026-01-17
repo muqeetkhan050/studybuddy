@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function NotesApp() {
+export default function Notes() {
   const [notes, setNotes] = useState([]);
   const [selectedNote, setSelectedNote] = useState(null);
   const [noteContent, setNoteContent] = useState('');

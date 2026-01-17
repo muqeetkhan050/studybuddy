@@ -1,15 +1,25 @@
-import React from 'react';
-import Streak from '../components/Streak';
-import Timer from '../components/Timer';
-import Notes from '../components/Notes';
-export default function LeftBar() {
+import React from "react";
+
+export default function LeftBar({ setActiveComponent }) {
   return (
-    <div >  
-        <Streak />      
-        <Timer />   
-        <Notes />
-     
+    <div style={{ flex: 1, padding: "20px", borderRight: "1px solid #ddd" }}>
+      
+      <button onClick={() => setActiveComponent("streak")}>
+        Streak
+      </button>
+
+      <br /><br />
+
+      <button onClick={() => setActiveComponent("timer")}>
+        Timer
+      </button>
+
+      <br /><br />
+
+      <button onClick={() => setActiveComponent("notes")}>
+        Notes
+      </button>
+
     </div>
   );
 }
-
