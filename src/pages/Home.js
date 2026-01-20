@@ -5,6 +5,7 @@ import LeftBar from "./Leftbar";
 import Streak from "../components/Streak";
 import Timer from "../components/Timer";
 import Notes from "../components/Notes";
+import Planner from "../components/Planner";
 
 export default function Home() {
   const [activeComponent, setActiveComponent] = useState("streak");
@@ -17,6 +18,7 @@ export default function Home() {
         {activeComponent === "streak" && <Streak />}
         {activeComponent === "timer" && <Timer />}
         {activeComponent === "notes" && <Notes />}
+        {activeComponent==="planner" && <Planner />}
       </div>
     </div>
   );

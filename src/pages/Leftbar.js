@@ -220,18 +220,7 @@ const Leftbar = ({ setActiveComponent }) => {
           active={activeTab === 'planner'}
           onClick={() => handleButtonClick('planner', 'planner')}
         />
-        <SidebarButton
-          icon={BookIcon}
-          label="Resources"
-          active={activeTab === 'resources'}
-          onClick={() => handleButtonClick('resources', 'resources')}
-        />
-        <SidebarButton
-          icon={FileTextIcon}
-          label="Scriba"
-          active={activeTab === 'scriba'}
-          onClick={() => handleButtonClick('scriba', 'scriba')}
-        />
+
         <SidebarButton
           icon={ClockIcon}
           label="Timer"
