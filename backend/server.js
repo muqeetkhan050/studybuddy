@@ -1,88 +1,59 @@
-// // import express from "express";
-// // import dotenv from "dotenv";
-// // import connectDB from "./config/db.js";
-// // import authRoutes from "./routes/authRoutes.js";
-// // import cors from "cors";
-
-// // dotenv.config();
-
-// // const app = express();
-
-// // app.use(express.json());
-
-// // connectDB();
-// // app.use(cors({
-// //   origin: "http://localhost:3001", // your frontend
-// //   credentials: true,               // optional, if you plan to send cookies
-// // }));
-// // app.use("/api/auth", authRoutes);
-
-
-// // app.use("/api/study-plans", studyPlanRoutes);
-
-
-
-// // app.get("/", (req, res) => {
-// //   res.send("API is running...");
-// // });
-
-// // const PORT = process.env.PORT || 5000;
-
-// // app.listen(PORT, () => {
-// //   console.log(`Server running on port ${PORT}`);
-// // });
 
 
 // import express from "express";
-// import mongoose from "mongoose";
 // import dotenv from "dotenv";
-// import cors from "cors";
-
-// // IMPORT STUDY PLAN ROUTES
+// import authRoutes from "./routes/authRoutes.js";
 // import studyPlanRoutes from "./routes/studyPlanRoutes.js";
+// import cors from "cors";
+// import mongoose from "mongoose";
+// import notesRoutes from "./routes/notesRoutes.js";
 
 // dotenv.config();
-// const app = express();
 
+// const app = express();
 // app.use(cors());
 // app.use(express.json());
 
-// // Connect MongoDB (example)
-// mongoose.connect(process.env.MONGO_URI, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
-// }).then(() => console.log("MongoDB connected"))
-//   .catch((err) => console.log(err));
-
-// // Use routes
-// app.use("/api/study-plans", studyPlanRoutes);
-
 // app.use("/api/auth", authRoutes);
+// app.use("/api/study-plans", studyPlanRoutes);
+// app.use("/api/notes", notesRoutes);
 
-// const PORT = process.env.PORT || 5000;
-// app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
+// mongoose.connect(process.env.MONGO_URI)
+//   .then(() => app.listen(5000, () => console.log("Server running on 5000")))
+//   .catch(err => console.error(err));
 
 
 import express from "express";
 import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
 import studyPlanRoutes from "./routes/studyPlanRoutes.js";
+import notesRoutes from "./routes/notesRoutes.js";
 import cors from "cors";
 import mongoose from "mongoose";
-import notesRoutes from "./routes/notesRoutes.js";
 
 dotenv.config();
 
 const app = express();
-app.use(cors());
+
+// ===== Middleware =====
+app.use(cors({
+  origin: 'hhttps://studybuddy-tau-sable.vercel.app/', // replace with your frontend URL
+  credentials: true
+}));
 app.use(express.json());
 
+// ===== Routes =====
 app.use("/api/auth", authRoutes);
 app.use("/api/study-plans", studyPlanRoutes);
 app.use("/api/notes", notesRoutes);
 
+// ===== Connect to MongoDB & Start Server =====
+const PORT = process.env.PORT || 5000;
 
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => app.listen(5000, () => console.log("Server running on 5000")))
+  .then(() => app.listen(PORT, () => console.log(`Server running on ${PORT}`)))
   .catch(err => console.error(err));
+
+mongoose.connection.on('connected', () => console.log('MongoDB connected successfully'));
+mongoose.connection.on('error', (err) => console.error('MongoDB connection error:', err));
