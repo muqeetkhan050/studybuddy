@@ -1,7 +1,9 @@
+
+
 import React from 'react';
 
-const StudyActivityDashboard = () => {
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan'];
+const Streak = () => {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   // Generate empty contribution grid (52 weeks)
@@ -9,7 +11,7 @@ const StudyActivityDashboard = () => {
     const grid = [];
     for (let i = 0; i < 7; i++) {
       const row = [];
-      for (let j = 0; j < 53; j++) {
+      for (let j = 0; j < 52; j++) {
         row.push(0);
       }
       grid.push(row);
@@ -130,14 +132,13 @@ const styles = {
   monthLabels: {
     display: 'flex',
     marginLeft: '50px',
-    gap: '20px',
     fontSize: '12px',
     color: '#666',
     marginBottom: '8px',
   },
   monthLabel: {
-    width: '80px',
-    textAlign: 'left',
+    width: '56px',
+    textAlign: 'center',
   },
   gridWrapper: {
     display: 'flex',
@@ -146,29 +147,29 @@ const styles = {
   dayLabels: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '2px',
+    gap: '3px',
     fontSize: '12px',
     color: '#666',
-    justifyContent: 'space-around',
     paddingTop: '2px',
+    width: '42px',
   },
   dayLabel: {
-    height: '12px',
+    height: '13px',
     display: 'flex',
     alignItems: 'center',
   },
   grid: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '2px',
+    gap: '3px',
   },
   gridRow: {
     display: 'flex',
-    gap: '2px',
+    gap: '3px',
   },
   gridCell: {
-    width: '12px',
-    height: '12px',
+    width: '13px',
+    height: '13px',
     backgroundColor: '#e8e8e8',
     borderRadius: '2px',
   },
@@ -214,4 +215,4 @@ const styles = {
   },
 };
 
-export default StudyActivityDashboard;
+export default Streak;
