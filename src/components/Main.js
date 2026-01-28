@@ -45,6 +45,9 @@ const FeatureCard = ({ icon, title, description }) => {
   );
 };
 
+console.log("API URL:", process.env.REACT_APP_API_URL);
+
+
 const Main = () => {
   const [buttonHovered, setButtonHovered] = useState(false);
   const navigate=useNavigate();
