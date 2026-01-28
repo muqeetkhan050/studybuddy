@@ -1,29 +1,5 @@
 
 
-// import express from "express";
-// import dotenv from "dotenv";
-// import authRoutes from "./routes/authRoutes.js";
-// import studyPlanRoutes from "./routes/studyPlanRoutes.js";
-// import cors from "cors";
-// import mongoose from "mongoose";
-// import notesRoutes from "./routes/notesRoutes.js";
-
-// dotenv.config();
-
-// const app = express();
-// app.use(cors());
-// app.use(express.json());
-
-// app.use("/api/auth", authRoutes);
-// app.use("/api/study-plans", studyPlanRoutes);
-// app.use("/api/notes", notesRoutes);
-
-
-// mongoose.connect(process.env.MONGO_URI)
-//   .then(() => app.listen(5000, () => console.log("Server running on 5000")))
-//   .catch(err => console.error(err));
-
-
 import express from "express";
 import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
@@ -38,7 +14,7 @@ const app = express();
 
 // ===== Middleware =====
 app.use(cors({
-  origin: 'hhttps://studybuddy-tau-sable.vercel.app/', // replace with your frontend URL
+  origin: 'https://studybuddy-tau-sable.vercel.app/', // replace with your frontend URL
   credentials: true
 }));
 app.use(express.json());
