@@ -14,7 +14,7 @@ const app = express();
 
 // ===== Middleware =====
 app.use(cors({
-  origin: 'https://studybuddy-tau-sable.vercel.app/', // replace with your frontend URL
+  origin: 'https://studybuddy-tau-sable.vercel.app', // replace with your frontend URL
   credentials: true
 }));
 app.use(express.json());
