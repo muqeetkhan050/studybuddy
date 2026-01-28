@@ -14,12 +14,11 @@ function Planner() {
   useEffect(() => {
     const fetchPlans = async () => {
       try {
-      const res = await API.get("/study-plans");
-      setPlans(res.data);
-    } catch (err) {
-      console.error(err);
-    }
-      setPlans(res.data);
+        const res = await API.get("/study-plans");
+        setPlans(res.data);
+      } catch (err) {
+        console.error(err);
+      }
     };
     fetchPlans();
   }, []);
@@ -41,10 +40,6 @@ function Planner() {
       alert("Failed to create task");
       return;
     }
-
-    setPlans([res.data, ...plans]);
-    setTask("");
-    setDueDate("");
   };
 
   // Delete task
