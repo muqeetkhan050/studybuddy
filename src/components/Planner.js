@@ -13,7 +13,12 @@ function Planner() {
   // Fetch planner tasks for logged-in user
   useEffect(() => {
     const fetchPlans = async () => {
+      try {
       const res = await API.get("/study-plans");
+      setPlans(res.data);
+    } catch (err) {
+      console.error(err);
+    }
       setPlans(res.data);
     };
     fetchPlans();
@@ -23,10 +28,19 @@ function Planner() {
   const handleCreatePlan = async () => {
     if (!task || !dueDate) return;
 
-    const res = await API.post("/study-plans", {
-      topic: task,
-      examDate: dueDate
-    });
+    try {
+      const res = await API.post("/study-plans", {
+        topic: task,
+        examDate: dueDate
+      });
+      setPlans([res.data, ...plans]);
+      setTask("");
+      setDueDate("");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to create task");
+      return;
+    }
 
     setPlans([res.data, ...plans]);
     setTask("");
@@ -35,8 +49,13 @@ function Planner() {
 
   // Delete task
   const deletePlan = async (id) => {
-    await API.delete(`/study-plans/${id}`);
-    setPlans(plans.filter((plan) => plan._id !== id));
+    try {
+      await API.delete(`/study-plans/${id}`);
+      setPlans(plans.filter((plan) => plan._id !== id));
+    } catch (err) {
+      console.error(err);
+      alert("Failed to delete task");
+    }
   };
 
   const toggleSection = (id) => {

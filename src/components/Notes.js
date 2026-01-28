@@ -609,9 +609,7 @@ export default function Notes() {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const res = await API.get('/notes', {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-        });
+        const res = await API.get('/notes');
         setNotes(res.data);
       } catch (err) {
         console.error(err);
@@ -638,8 +636,7 @@ export default function Notes() {
     try {
       const res = await API.post(
         '/notes',
-        { title: newTitle || 'Untitled Note', content: newContent || 'Start writing...' },
-        { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+        { title: newTitle || 'Untitled Note', content: newContent || 'Start writing...' }
       );
       setNotes([res.data, ...notes]);
       setSelectedNote(res.data._id);
@@ -671,8 +668,7 @@ export default function Notes() {
     try {
       await API.put(
         `/notes/${selectedNote}`,
-        { content: noteContent || 'Start writing...' },
-        { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+        { content: noteContent || 'Start writing...' }
       );
     } catch (err) {
       console.error(err);
@@ -691,8 +687,7 @@ export default function Notes() {
     try {
       await API.put(
         `/notes/${selectedNote}`,
-        { title: noteTitle || 'Untitled Note' },
-        { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+        { title: noteTitle || 'Untitled Note' }
       );
     } catch (err) {
       console.error(err);
@@ -710,9 +705,7 @@ export default function Notes() {
     }
 
     try {
-      await API.delete(`/notes/${noteId}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-      });
+      await API.delete(`/notes/${noteId}`);
     } catch (err) {
       console.error(err);
       alert('Failed to delete note');
