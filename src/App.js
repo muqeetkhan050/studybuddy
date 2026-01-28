@@ -5,9 +5,10 @@ import { BrowserRouter, Route,Routes } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
+import { AuthProvider } from './context/authContext';
 function App() {
   return (
-    <>
+    <AuthProvider>
       <BrowserRouter>
       <Routes>
         <Route path='/' element={<Main />} />
@@ -16,7 +17,7 @@ function App() {
         <Route path='home' element={<Home />} />
         </Routes>
       </BrowserRouter>
-    </>
+    </AuthProvider>
   );
 }
 
