@@ -1,8 +1,8 @@
 
 
 import React from 'react';
+import {useAuth} from '../context/authContext';
 
-// Icon Components
 const HomeIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
@@ -137,6 +137,12 @@ const Leftbar = ({ setActiveComponent }) => {
   };
 
   const [menuHovered, setMenuHovered] = React.useState(false);
+  const {logout}=useAuth();
+  const handleLogout=()=>{
+    logout();
+    window.location.href='/signup';
+
+  }
 
   return (
     <div style={{
@@ -230,7 +236,7 @@ const Leftbar = ({ setActiveComponent }) => {
           icon={LogOutIcon}
           label="Log out"
           active={false}
-          onClick={() => console.log('Logging out...')}
+          onClick={handleLogout}
         />
       </div>
     </div>
