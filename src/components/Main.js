@@ -90,7 +90,7 @@ const Main = () => {
             onMouseEnter={() => setButtonHovered(true)}
             onMouseLeave={() => setButtonHovered(false)}
        
-            onClick={()=>navigate('/signup')} 
+            onClick={()=>navigate('/signin')} 
           >
             Get Started →
           </button>
