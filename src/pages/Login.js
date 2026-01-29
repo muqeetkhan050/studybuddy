@@ -36,7 +36,9 @@ const Login = () => {
       if (!response.user) {
         setError(response.message || 'Login failed');
       } else {
+        console.log('About to call login with:', response.user, response.token);
         login(response.user, response.token);
+        console.log('Login function called, navigating to /home');
         navigate('/home');
       }
     } catch (err) {
