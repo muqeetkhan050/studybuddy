@@ -30,6 +30,8 @@ const Login = () => {
       const res = await API.post('/auth/login', formData);
       const response = res.data;
 
+      console.log('Login response:', response); // Debug log
+
       if (!response.user) {
         setError(response.message || 'Login failed');
       } else {

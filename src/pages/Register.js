@@ -22,9 +22,13 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log('Register form data being sent:', formData); // Debug log
+
     try {
       const res = await API.post('/auth/register', formData);
       const response = res.data;
+
+      console.log('Register response:', response); // Debug log
 
       if (!response.user) {
         alert(response.message || 'Registration failed');
