@@ -1,23 +1,35 @@
 
 import './App.css';
 import Main from './components/Main';
-import { BrowserRouter, Route,Routes } from 'react-router-dom';
+import { BrowserRouter, Route,Routes, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
-import { AuthProvider } from './context/authContext';
+import Notes from './components/Notes';
+import Planner from './components/Planner';
+import ProtectedRoute from './components/ProtectedRoute';
 function App() {
   return (
-    <AuthProvider>
+    <>
       <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Main />} />
-        <Route path='signin' element={<Login />} />
-        <Route path='register' element={<Register />} />
-        <Route path='home' element={<Home />} />
+        <Routes>
+          {/* Public routes - anyone can access */}
+          <Route path='/' element={<Main />} />
+          <Route path='signin' element={<Login />} />
+          <Route path='register' element={<Register />} />
+          
+          {/* Protected routes - require login */}
+          <Route element={<ProtectedRoute />}>
+            <Route path='home' element={<Home />} />
+            <Route path='notes' element={<Notes />} />
+            <Route path='planner' element={<Planner />} />
+          </Route>
+          
+          {/* Catch all - redirect to home */}
+          <Route path='*' element={<Navigate to="/home" replace />} />
         </Routes>
       </BrowserRouter>
-    </AuthProvider>
+    </>
   );
 }
 
