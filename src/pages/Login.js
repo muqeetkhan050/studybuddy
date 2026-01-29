@@ -30,16 +30,10 @@ const Login = () => {
       const res = await API.post('/auth/login', formData);
       const response = res.data;
 
-      console.log('Login response:', response); // Debug log
-      console.log('Response user:', response.user); // Debug log
-      console.log('Response token:', response.token); // Debug log
-
       if (!response.user) {
         setError(response.message || 'Login failed');
       } else {
-        console.log('Calling login function with:', response.user, response.token); // Debug log
         login(response.user, response.token);
-        console.log('Navigating to /home...'); // Debug log
         navigate('/home');
       }
     } catch (err) {

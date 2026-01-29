@@ -2,11 +2,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/authContext';
+import API from '../services/api';
 
 const Signup = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
   const [formData, setFormData] = useState({
+    name: '',
     email: '',
     password: ''
   });
@@ -26,19 +27,14 @@ const Signup = () => {
     setError('');
 
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+      const res = await API.post('/auth/register', formData);
+      const response = res.data;
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data.message || 'Login failed');
+      if (!response.user) {
+        setError(response.message || 'Registration failed');
       } else {
-        login(data.user, data.token);
-        navigate('/home');
+        alert('Registration successful! Please login.');
+        navigate('/signin'); // redirect to login page
       }
     } catch (err) {
       console.error(err);
@@ -56,10 +52,21 @@ const Signup = () => {
       </div>
 
       <div style={styles.card}>
-        <h2 style={styles.cardTitle}>Sign in to your account</h2>
+        <h2 style={styles.cardTitle}>Create your account</h2>
 
         <div style={styles.formContainer}>
           {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
+
+          <div style={styles.inputGroup}>
+            <input
+              type="text"
+              name="name"
+              placeholder="Name"
+              value={formData.name}
+              onChange={handleChange}
+              style={styles.input}
+            />
+          </div>
 
           <div style={styles.inputGroup}>
             <input
@@ -88,11 +95,36 @@ const Signup = () => {
             style={{ ...styles.signUpButton, opacity: loading ? 0.6 : 1 }}
             disabled={loading}
           >
+            {loading ? 'Registering...' : 'Sign Up'}
+          </button>
+
+          <p style={styles.signInText}>
+            Already have an account?{' '}
+            <span onClick={() => navigate('/signin')} style={styles.signInLink}>Sign in</span>
+          </p>
+        </div>
+
+          <div style={styles.inputGroup}>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              style={styles.input}
+            />
+          </div>
+
+          <button
+            onClick={handleSubmit}
+            style={{ ...styles.signUpButton, opacity: loading ? 0.6 : 1 }}
+            disabled={loading}
+          >
             {loading ? 'Logging in...' : 'Sign In'}
           </button>
 
           <p style={styles.signInText}>
-            Don't have an account?{' '}
+            Already have an account?{' '}
             <span onClick={() => navigate('/register')} style={styles.signInLink}>Register</span>
           </p>
         </div>
