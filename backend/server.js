@@ -17,19 +17,30 @@ dotenv.config();
 const app = express();
 
 // ===== Middleware =====
+// app.use(cors({
+//   origin: true, // Allow all origins in development
+//   credentials: true,
+//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+//   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+// }));
+
 app.use(cors({
-  origin: [
-    'https://studybuddy-tau-sable.vercel.app',
-    'https://studybuddy-git-main-muqeetkhan050s-projects.vercel.app',
-    'https://studybuddy-osk1.onrender.com',
-    process.env.FRONTEND_URL
-  ].filter(Boolean),
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: "https://studybuddy-tau-sable.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
 }));
 
 app.use(express.json());
+
+// Handle OPTIONS requests for CORS preflight
+app.options('*', (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.sendStatus(200);
+});
 
 // Request logging for debugging
 app.use((req, res, next) => {
@@ -74,11 +85,58 @@ app.use("/api/auth", authRoutes);
 app.use("/api/study-plans", studyPlanRoutes);
 app.use("/api/notes", notesRoutes);
 
-// ===== Connect to MongoDB & Start Server =====
-const PORT = process.env.PORT || 5000;
+// ===== Middleware =====
+app.use(cors({
+  origin: true, // Allow all origins in development
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+}));
+
+// Handle OPTIONS requests for CORS preflight
+app.options('*', (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.sendStatus(200);
+});
+
+app.use(express.json());
+
+// Request logging for debugging
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`, {
+    origin: req.headers.origin,
+    timestamp: new Date().toISOString()
+  });
+  next();
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Server Error:', {
+    error: err.message,
+    stack: err.stack,
+    path: req.path,
+    method: req.method,
+    timestamp: new Date().toISOString()
+  });
+  
+  if (res.headersSent) {
+    return next(err);
+  }
+  
+  res.status(500).json({
+    message: 'Internal Server Error',
+    error: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong'
+  });
+});
 
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => app.listen(PORT, () => console.log(`Server running on ${PORT}`)))
+  .then(() => {
+    app.listen(PORT, () => console.log(`Server running on ${PORT}`));
+  })
   .catch(err => console.error(err));
 
 mongoose.connection.on('connected', () => console.log('MongoDB connected successfully'));
