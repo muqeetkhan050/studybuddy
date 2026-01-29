@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/authContext';
+import API from '../services/api';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -26,18 +27,13 @@ const Login = () => {
     setError('');
 
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+      const res = await API.post('/auth/login', formData);
+      const response = res.data;
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data.message || 'Login failed');
+      if (!response.user) {
+        setError(response.message || 'Login failed');
       } else {
-        login(data.user, data.token);
+        login(response.user, response.token);
         navigate('/home');
       }
     } catch (err) {

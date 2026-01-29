@@ -18,7 +18,11 @@ const app = express();
 
 // ===== Middleware =====
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'https://studybuddy-tau-sable.vercel.app',
+  origin: [
+    'https://studybuddy-tau-sable.vercel.app',
+    'https://studybuddy-git-main-muqeetkhan050s-projects.vercel.app',
+    process.env.FRONTEND_URL
+  ].filter(Boolean),
   credentials: true
 }));
 app.use(express.json());
