@@ -30,6 +30,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (userData, jwtToken) => {
+    console.log('AuthContext login called with:', userData, jwtToken); // Debug log
     setUser(userData);
     setToken(jwtToken);
     localStorage.setItem("token", jwtToken);

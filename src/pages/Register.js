@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import API from '../services/api';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -22,18 +23,11 @@ const RegisterPage = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/auth/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const res = await API.post('/auth/register', formData);
+      const response = res.data;
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        alert(data.message || 'Registration failed');
+      if (!response.user) {
+        alert(response.message || 'Registration failed');
       } else {
         alert('Registration successful! Please login.');
         navigate('/signin'); // redirect to login page
