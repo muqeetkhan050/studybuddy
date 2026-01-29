@@ -3,15 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/authContext';
 import API from '../services/api';
 
-const Login = () => {
+const RegisterPage = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
   const [formData, setFormData] = useState({
+    name: '',
     email: '',
     password: ''
   });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     setFormData({
@@ -22,43 +20,48 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError('');
 
-    console.log('Login form data being sent:', formData); // Debug log
+    console.log('Register form data being sent:', formData); // Debug log
 
     try {
-      const res = await API.post('/auth/login', formData);
+      const res = await API.post('/auth/register', formData);
       const response = res.data;
 
-      console.log('Login response:', response); // Debug log
+      console.log('Register response:', response); // Debug log
 
       if (!response.user) {
-        setError(response.message || 'Login failed');
+        alert(response.message || 'Registration failed');
       } else {
-        login(response.user, response.token);
-        navigate('/home');
+        alert('Registration successful! Please login.');
+        navigate('/signin'); // redirect to login page
       }
     } catch (err) {
       console.error(err);
-      setError('Server error. Try again later.');
+      alert('Server error. Try again later.');
     }
-
-    setLoading(false);
   };
 
   return (
     <div style={styles.container}>
       <div style={styles.header}>
         <h1 style={styles.title}>Welcome to Mind Mentor</h1>
-        <p style={styles.subtitle}>Sign in to continue your study journey</p>
+        <p style={styles.subtitle}>Let's get started with your study journey</p>
       </div>
 
       <div style={styles.card}>
-        <h2 style={styles.cardTitle}>Sign in to your account</h2>
+        <h2 style={styles.cardTitle}>Create your account</h2>
 
         <div style={styles.formContainer}>
-          {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
+          <div style={styles.inputGroup}>
+            <input
+              type="text"
+              name="name"
+              placeholder="Name"
+              value={formData.name}
+              onChange={handleChange}
+              style={styles.input}
+            />
+          </div>
 
           <div style={styles.inputGroup}>
             <input
@@ -80,19 +83,18 @@ const Login = () => {
               onChange={handleChange}
               style={styles.input}
             />
+            <p style={styles.passwordHint}>
+              Password must be at least 8 characters and contain uppercase, lowercase, and numbers
+            </p>
           </div>
 
-          <button
-            onClick={handleSubmit}
-            style={{ ...styles.signUpButton, opacity: loading ? 0.6 : 1 }}
-            disabled={loading}
-          >
-            {loading ? 'Logging in...' : 'Sign In'}
+          <button onClick={handleSubmit} style={styles.signUpButton}>
+            Register
           </button>
 
           <p style={styles.signInText}>
-            Don't have an account?{' '}
-            <span onClick={() => navigate('/register')} style={styles.signInLink}>Register</span>
+            Already have an account?{' '}
+            <span onClick={() => navigate('/signin')} style={styles.signInLink}>Sign in</span>
           </p>
         </div>
       </div>
@@ -162,6 +164,13 @@ const styles = {
     backgroundColor: '#f8f8f8',
     color: '#2c3e50',
   },
+  passwordHint: {
+    fontSize: '12px',
+    color: '#888',
+    marginTop: '6px',
+    marginBottom: 0,
+    lineHeight: '1.4',
+  },
   signUpButton: {
     padding: '14px',
     backgroundColor: '#5a8a8a',
@@ -188,4 +197,4 @@ const styles = {
   },
 };
 
-export default Login;
+export default RegisterPage;
