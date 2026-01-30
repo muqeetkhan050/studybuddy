@@ -38,14 +38,6 @@ const Login = () => {
       } else {
         console.log('About to call login with:', response.user, response.token);
         login(response.user, response.token);
-        console.log('Login function called, attempting to navigate to /home');
-        
-        // Force navigation with window.location as fallback
-        setTimeout(() => {
-          console.log('Forcing navigation to /home...');
-          window.location.href = '/home';
-        }, 100);
-        
         navigate('/home');
       }
     } catch (err) {

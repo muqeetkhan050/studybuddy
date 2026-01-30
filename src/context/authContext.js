@@ -30,6 +30,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (userData, jwtToken) => {
+    console.log('AuthContext login called with:', userData, jwtToken);
     setUser(userData);
     setToken(jwtToken);
     localStorage.setItem("token", jwtToken);
@@ -37,6 +38,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
+    console.log('AuthContext logout called');
     setUser(null);
     setToken(null);
     localStorage.removeItem("token");
