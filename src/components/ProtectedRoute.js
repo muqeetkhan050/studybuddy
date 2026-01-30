@@ -45,10 +45,4 @@ export default function ProtectedRoute() {
   return <Outlet />;
 }
   
-  if (!user) {
-    console.log('ProtectedRoute: no user found, redirecting to signin');
-    return <Navigate to="/signin" replace />;
-  }
-  
-  console.log('ProtectedRoute: user found, allowing access');
-  return <Outlet />;
+

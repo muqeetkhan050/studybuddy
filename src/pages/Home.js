@@ -6,6 +6,7 @@ import Streak from "../components/Streak";
 import Timer from "../components/Timer";
 import Notes from "../components/Notes";
 import Planner from "../components/Planner";
+import Profile from "./Profile";
 import { useAuth } from '../context/authContext';
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
         {activeComponent === "timer" && <Timer />}
         {activeComponent === "notes" && <Notes />}
         {activeComponent==="planner" && <Planner />}
+        {activeComponent === "profile" && <Profile />}
       </div>
     </div>
   );

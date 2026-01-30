@@ -8,6 +8,7 @@ import Signup from './pages/Signup';
 import Home from './pages/Home';
 import Notes from './components/Notes';
 import Planner from './components/Planner';
+import Profile from './pages/Profile';
 import ProtectedRoute from './components/ProtectedRoute';
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path='home' element={<Home />} />
             <Route path='notes' element={<Notes />} />
             <Route path='planner' element={<Planner />} />
+            <Route path='profile' element={<Profile />} />
           </Route>
           
           {/* Catch all - redirect to home */}

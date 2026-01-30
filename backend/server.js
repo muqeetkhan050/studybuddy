@@ -16,13 +16,6 @@ dotenv.config();
 
 const app = express();
 
-// ===== Middleware =====
-// app.use(cors({
-//   origin: true, // Allow all origins in development
-//   credentials: true,
-//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-//   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
-// }));
 
 app.use(cors({
   origin: "https://studybuddy-tau-sable.vercel.app",
@@ -32,6 +25,9 @@ app.use(cors({
 }));
 
 app.use(express.json());
+
+// Serve static files from uploads directory
+app.use('/uploads', express.static('uploads'));
 
 // Handle OPTIONS requests for CORS preflight
 app.options('*', (req, res) => {
@@ -132,6 +128,8 @@ app.use((err, req, res, next) => {
     error: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong'
   });
 });
+
+const PORT = process.env.PORT || 5000;
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
