@@ -35,24 +35,15 @@ import { useAuth } from '../context/authContext';
 import { Navigate, Outlet } from 'react-router-dom';
 
 export default function ProtectedRoute() {
-  const { user, loading } = useAuth();
+  const { user } = useAuth();
   
-  console.log('ProtectedRoute: loading =', loading, ', user =', user);
-  
-  // Wait for auth to initialize
-  if (loading) {
-    return (
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        backgroundColor: '#f5f5dc'
-      }}>
-        <div style={{ fontSize: '20px', color: '#2c3e50' }}>Loading...</div>
-      </div>
-    );
+  if (!user) {
+    console.log('ProtectedRoute: no user found, redirecting to signin'); // Debug
+    return <Navigate to="/signin" replace />;
   }
+  
+  return <Outlet />;
+}
   
   if (!user) {
     console.log('ProtectedRoute: no user found, redirecting to signin');
@@ -61,4 +52,3 @@ export default function ProtectedRoute() {
   
   console.log('ProtectedRoute: user found, allowing access');
   return <Outlet />;
-}
