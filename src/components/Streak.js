@@ -20,11 +20,12 @@ const Streak = () => {
   };
 
   const contributionGrid = generateContributionGrid();
+  const { user } = useAuth();
 
   return (
     <div style={styles.container}>
       <div style={styles.header}>
-        <h1 style={styles.userName}>MUHAMMAD MUQEET UR REHMAN's Study Activity</h1>
+        <h1 style={styles.userName}> {user?.name || 'User'}'s Study Activity</h1>
         <p style={styles.lastUpdated}>Last updated: 16/01/2026</p>
       </div>
 
