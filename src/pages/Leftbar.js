@@ -112,7 +112,7 @@ const UserProfile = ({ name }) => (
         fontWeight: '600',
         fontSize: '16px'
       }}>
-        M
+        {name ? name.charAt(0).toUpperCase() : 'U'}
       </div>
       <div>
         <p style={{ fontSize: '12px', color: '#6b7280', margin: 0 }}>Welcome,</p>
@@ -126,7 +126,8 @@ const Leftbar = ({ setActiveComponent }) => {
   const [activeTab, setActiveTab] = React.useState('streak');
   const [menuHovered, setMenuHovered] = React.useState(false);
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
+
 
   const handleButtonClick = (tabName, componentName) => {
     setActiveTab(tabName);
@@ -153,7 +154,7 @@ const Leftbar = ({ setActiveComponent }) => {
       flexShrink: 0
     }}>
       {/* User Profile Section */}
-      <UserProfile name="MUHAMMAD" />
+      <UserProfile name={user?.name} />
 
       {/* Collapsible Menu Icon */}
       <div style={{ padding: '0 16px', marginBottom: '16px' }}>
