@@ -140,7 +140,7 @@ const Leftbar = ({ setActiveComponent }) => {
   const {logout}=useAuth();
   const handleLogout=()=>{
     logout();
-    window.location.href='/signin';
+    navigate('/signin'); 
 
   }
 
