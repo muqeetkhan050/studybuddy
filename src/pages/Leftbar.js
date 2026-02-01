@@ -122,7 +122,6 @@ const UserProfile = ({ name }) => (
   </div>
 );
 
-// Main Leftbar Component
 const Leftbar = ({ setActiveComponent }) => {
   const [activeTab, setActiveTab] = React.useState('streak');
   const [menuHovered, setMenuHovered] = React.useState(false);
