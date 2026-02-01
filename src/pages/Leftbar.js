@@ -81,7 +81,7 @@ const SidebarButton = ({ icon: Icon, label, active = false, onClick }) => {
   );
 };
 
-// Section Header Component
+
 const SectionHeader = ({ title }) => (
   <div style={{ padding: '24px 16px 8px 16px' }}>
     <h3 style={{
