@@ -2,6 +2,7 @@
 
 import React from 'react';
 import {useAuth} from '../context/authContext';
+import { useNavigate } from 'react-router-dom';
 
 const HomeIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -128,6 +129,7 @@ const UserProfile = ({ name }) => (
 // Main Leftbar Component
 const Leftbar = ({ setActiveComponent }) => {
   const [activeTab, setActiveTab] = React.useState('streak');
+  const navigate=useNavigate();
 
   const handleButtonClick = (tabName, componentName) => {
     setActiveTab(tabName);
