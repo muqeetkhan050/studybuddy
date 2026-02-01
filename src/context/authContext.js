@@ -81,29 +81,50 @@ export const AuthProvider = ({ children }) => {
 
   // Initialize user from localStorage on app load
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    const storedToken = localStorage.getItem("token");
-    
-    if (storedUser && storedToken) {
+    const initializeAuth = () => {
       try {
-        setUser(JSON.parse(storedUser));
-        setToken(storedToken);
+        const storedUser = localStorage.getItem("user");
+        const storedToken = localStorage.getItem("token");
+        
+        console.log('AuthContext: Initializing auth', { storedUser, storedToken });
+        
+        if (storedUser && storedToken) {
+          const parsedUser = JSON.parse(storedUser);
+          setUser(parsedUser);
+          setToken(storedToken);
+          console.log('AuthContext: User loaded from storage', parsedUser);
+        } else {
+          console.log('AuthContext: No stored auth data found');
+        }
       } catch (error) {
-        console.error("Error parsing stored user:", error);
+        console.error("AuthContext: Error parsing stored user:", error);
         localStorage.removeItem("user");
         localStorage.removeItem("token");
+      } finally {
+        setLoading(false);
       }
-    }
-    
-    setLoading(false); // Done loading
+    };
+
+    initializeAuth();
   }, []);
 
   const login = (userData, jwtToken) => {
     console.log('AuthContext login called with:', userData, jwtToken);
-    setUser(userData);
-    setToken(jwtToken);
-    localStorage.setItem("token", jwtToken);
-    localStorage.setItem("user", JSON.stringify(userData));
+    
+    if (!userData || !jwtToken) {
+      console.error('AuthContext: Invalid login data', { userData, jwtToken });
+      return;
+    }
+    
+    try {
+      setUser(userData);
+      setToken(jwtToken);
+      localStorage.setItem("token", jwtToken);
+      localStorage.setItem("user", JSON.stringify(userData));
+      console.log('AuthContext: User logged in successfully');
+    } catch (error) {
+      console.error('AuthContext: Error during login', error);
+    }
   };
 
   const logout = () => {

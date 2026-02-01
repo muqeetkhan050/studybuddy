@@ -28,21 +28,34 @@ const Login = () => {
     console.log('Login form data being sent:', formData); // Debug log
 
     try {
+      console.log('Making API call to:', API.defaults.baseURL + '/auth/login');
       const res = await API.post('/auth/login', formData);
       const response = res.data;
 
       console.log('Login response:', response); // Debug log
 
-      if (!response.user) {
-        setError(response.message || 'Login failed');
+      if (!response.user || !response.token) {
+        console.error('Invalid response structure:', response);
+        setError('Invalid response from server');
       } else {
         console.log('About to call login with:', response.user, response.token);
         login(response.user, response.token);
-        navigate('/home');
+        
+        // Add a small delay to ensure localStorage is updated
+        setTimeout(() => {
+          console.log('Navigating to home...');
+          navigate('/home');
+        }, 100);
       }
     } catch (err) {
-      console.error(err);
-      setError('Server error. Try again later.');
+      console.error('Login error:', err);
+      if (err.response) {
+        setError(err.response.data?.message || 'Login failed');
+      } else if (err.request) {
+        setError('Network error. Please check your connection.');
+      } else {
+        setError('Server error. Try again later.');
+      }
     }
 
     setLoading(false);
