@@ -4,10 +4,12 @@ import React from 'react';
 import { useAuth } from '../context/authContext';
 
 const Streak = () => {
-  const { user } = useAuth(); // This was already here but import was missing!
+  const { user } = useAuth();
   
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+  console.log('Streak component - user:', user); // Debug log
 
   // Generate empty contribution grid (52 weeks)
   const generateContributionGrid = () => {
@@ -27,7 +29,9 @@ const Streak = () => {
   return (
     <div style={styles.container}>
       <div style={styles.header}>
-        <h1 style={styles.userName}>{user?.name || 'User'}'s Study Activity</h1>
+        <h1 style={styles.userName}>
+          {user?.name ? `${user.name}'s Study Activity` : 'Study Activity'}
+        </h1>
         <p style={styles.lastUpdated}>Last updated: 16/01/2026</p>
       </div>
 

@@ -131,6 +131,8 @@ const Leftbar = ({ setActiveComponent }) => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
 
+  console.log('Leftbar - current user:', user); // Debug log
+
   const handleButtonClick = (tabName, componentName) => {
     setActiveTab(tabName);
     if (setActiveComponent) {
