@@ -264,14 +264,12 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login, user } = useAuth();
+  const { login, logout } = useAuth();
 
-  // Redirect if already logged in
+  // Clear any existing session when visiting login page
   useEffect(() => {
-    if (user) {
-      navigate('/home');
-    }
-  }, [user, navigate]);
+    logout();
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
