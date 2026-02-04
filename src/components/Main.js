@@ -17,7 +17,7 @@ const OurHeader = () => {
         <button style={styles.githubButton}>
           ⭐ GitHub 131
         </button>
-        <button onClick={()=>navigate('/signin')} style={styles.signInButton}>Sign in</button>
+        <button onClick={()=>navigate('/login')} style={styles.signInButton}>Sign in</button>
         <button onClick={()=>navigate('/register')} style={styles.signUpButton}>Register</button>
       </div>
     </header>
@@ -90,7 +90,7 @@ const Main = () => {
             onMouseEnter={() => setButtonHovered(true)}
             onMouseLeave={() => setButtonHovered(false)}
        
-            onClick={()=>navigate('/signin')} 
+            onClick={()=>navigate('/login')} 
           >
             Get Started →
           </button>

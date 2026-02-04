@@ -58,7 +58,7 @@ function App() {
       <Routes>
         {/* Public routes - anyone can access */}
         <Route path='/' element={<Main />} />
-        <Route path='/signin' element={<Login />} />
+        <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/signup' element={<Signup />} />
         
